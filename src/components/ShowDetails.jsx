@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { useState, useEffect } from "react";
-import { stripHTML, formatDate, formatUpdatedDate, getGenres, getRating } from "./utils";
+import { stripHTML, formatDate, formatUpdatedDate, getGenres, getRating, getImage } from "./utils";
 function ShowDetails(){
     const [show, setShow] = useState(null);
     const [error, setError] = useState("");
@@ -59,6 +59,12 @@ function ShowDetails(){
             cancelled = true;
         };
 }, [id]);
+
+    //Image Section
+    let poster = null;
+    if(show !== null){
+        poster = getImage(show.image , "original");
+    }
 
     //Summary Section
     let cleanSummary = "";
@@ -132,18 +138,14 @@ function ShowDetails(){
              cancelled = true;
         };
     },[id]);
-    /*
-    A short list of main cast members, loaded with a second fetch request
-    A link to the show page on TVmaze
-    The poster image with useful alternative text
-    */
-
-
 
     return(
         <>
             <h1>Show Details</h1>
+            <Link to="/">Back to Gallery</Link>
             <p>Show ID: {id}</p>
+
+            {poster ? <img src={poster} alt={`${show.name} poster`} width="250" /> : <p>No Image Available</p>}
 
             {loading === true? <p>Loading...</p> : 
                 (error !== "" ? <p>{error}</p> : 
@@ -158,6 +160,8 @@ function ShowDetails(){
             {show !== null ? <p>Premiered: {formattedDate}</p> : null}
 
             {show !== null ? <p>Updated: {updated}</p> : null}
+
+            {show !== null ? <a target="_blank" href={show.url}>See Show on TV Maze</a> : null}
 
             <section>
                 <h3>Cast</h3>

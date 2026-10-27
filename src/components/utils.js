@@ -47,3 +47,10 @@ export function getRating(rate){
     }
     return rate + "⭐";
 }
+
+export function getImage(img,size){
+    if(img === null){
+        return null;
+    }
+    return img[size];
+}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { stripHTML, formatDate, formatUpdatedDate, getGenres, getRating } from "./utils";
+import { stripHTML, formatDate, formatUpdatedDate, getGenres, getRating, getImage } from "./utils";
 function ShowCard({show}){
     //Summary Section
     const cleanSummary = stripHTML(show.summary);
@@ -17,12 +17,7 @@ function ShowCard({show}){
     //Rating Section
     const rating = getRating(show.rating.average);
 
-    /*  
-    Optionally, the poster image with useful alternative text
-    */
-
-
-
+    const poster = getImage(show.image , "original");
 
     //Cast Section
     const [cast, setCast] = useState([]);
@@ -69,6 +64,7 @@ function ShowCard({show}){
 
 return(
     <article>
+        {poster ? <img src={poster} alt={`${show.name} poster`} /> : <p>No Image Available</p>}
         <h3><Link to={`/shows/${show.id}`}>{show.name}</Link></h3>
         <p>{cleanSummary.trim() ? cleanSummary : "No Summary Available"}</p>
         <p>Premiered: {premiereDate}</p>

@@ -1,7 +1,18 @@
+import { useState } from "react";
+
 function SearchForm({query,setQuery,setSearchTerm}){
-    function handleSubmit(event){
+    const [searchError, setSearchError] = useState("");
+
+    function handleSubmit(event) {
         event.preventDefault();
-        setSearchTerm(query);
+
+        if(query.trim() === "") {
+            setSearchError("Please enter a TV show name.");
+            return;
+        }
+
+        setSearchError("");
+        setSearchTerm(query.trim());
     }
     return(
     <>
@@ -11,10 +22,14 @@ function SearchForm({query,setQuery,setSearchTerm}){
             type="text" 
             placeholder="Enter a Tv Show Name" 
             value={query} 
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) => {
+                setQuery(event.target.value);
+                setSearchError("");
+            }}
             />
             <button>Search</button>
         </form>
+        {searchError !== "" ? <p role="alert">{searchError}</p> : null}
     </>
     );
 }

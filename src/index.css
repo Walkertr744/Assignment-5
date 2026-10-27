@@ -1,7 +1,14 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
+  --movie-bg:#101014;
+  --movie-card: #24242A;
+  --movie-red: #E50914;
+  --movie-text: #F5F5F5;
+  --movie-muted: #A1A1AA;
+
+  --text: var(--movie-muted);
+  --text-h: var(--movie-text);
+  --bg: var(--movie-bg);
+
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
   --accent: #aa3bff;
@@ -17,7 +24,7 @@
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
-  color-scheme: light dark;
+  color-scheme: dark;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
