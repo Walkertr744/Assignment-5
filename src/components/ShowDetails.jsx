@@ -86,11 +86,15 @@ function ShowDetails(){
 
     //Rating Section
     let rating = "";
-    if(show !== null && show.rating.average !== null){
+    if(show !== null){
         rating = getRating(show.rating.average);
     }
 
-
+    /*
+    A short list of main cast members, loaded with a second fetch request
+    A link to the show page on TVmaze
+    Optionally, the poster image with useful alternative text
+    */
 
 
 
@@ -105,13 +109,13 @@ function ShowDetails(){
 
             {show !== null ? <p>{cleanSummary}</p> : null}
 
-            {show !== null ? <p>Genres: {genres}</p>:null}
+            {show !== null ? <p>Genres: {genres}</p> : null}
             
-            {show !== null ? <p>Rating: {rating}</p>:null}
+            {show !== null ? <p>Rating: {rating}</p> : null}
 
             {show !== null ? <p>Premiered: {formattedDate}</p> : null}
 
-            {show !== null ? <p>Updated: {updated}</p>:null}
+            {show !== null ? <p>Updated: {updated}</p> : null}
 
 
 

@@ -1,5 +1,5 @@
 export function stripHTML(html){
-    if(html === null){
+    if(html === null || html === ""){
         return "No summary available";
     }
     const temp = document.createElement("div");
@@ -10,7 +10,7 @@ export function stripHTML(html){
 
 export function formatDate(date){
     let formattedDate = "No premiere date available";
-    if(date !== null){
+    if(date !== null && date !== ""){
         const premiereDate = new Date(date);
         formattedDate = premiereDate.toLocaleDateString("en-US",{
             month: "long",
@@ -22,7 +22,7 @@ export function formatDate(date){
 }
 
 export function formatUpdatedDate(time){
-    if(time === null){
+    if(time === null || time === ""){
         return "No last updated information available";
     }
     return (new Date(time * 1000).toLocaleString("en-US", {
@@ -35,14 +35,14 @@ export function formatUpdatedDate(time){
 }
 
 export function getGenres(genre){
-    if (genre.length === 0){
+    if (genre === null || genre.length === 0){
         return "No genres available";
     }
     return genre.join(", ");
 }
 
 export function getRating(rate){
-    if(rate === null){
+    if(rate === null || rate === ""){
         return "No rating available";
     }
     return rate + "⭐";

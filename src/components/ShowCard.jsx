@@ -17,6 +17,14 @@ function ShowCard({show}){
     //Rating Section
     const rating = getRating(show.rating.average);
 
+    /*
+    A short list of main cast members, loaded with a second fetch request
+    
+    Optionally, the poster image with useful alternative text
+    */
+
+
+
 
     //Cast Section
     const [cast, setCast] = useState([]);
