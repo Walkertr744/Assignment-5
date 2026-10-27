@@ -90,10 +90,52 @@ function ShowDetails(){
         rating = getRating(show.rating.average);
     }
 
+    //Cast Section
+    const [cast, setCast] = useState([]);
+    const [castLoading, setCastLoading] = useState(true);
+    const [castError, setCastError] = useState("");
+        useEffect(()=>{
+        let cancelled = false;
+        async function getCast() {
+            
+
+            try{
+                setCastError("");
+                setCastLoading(true);
+                setCast([]);
+                const castUrl = `https://api.tvmaze.com/shows/${id}/cast`;
+                const castResponse = await fetch(castUrl);
+            
+                if (!castResponse.ok) {
+                    throw new Error("Failed to fetch cast information");
+                }
+                const castData = await castResponse.json();
+                if(cancelled === false){
+                    setCast(castData);
+                }
+                
+
+            }
+            catch(error){
+                if(cancelled === false){
+                    setCastError("Failed to load cast information");
+                }    
+            }
+            finally{
+                if(cancelled === false){
+                    setCastLoading(false);
+                }                
+            }
+        }
+        getCast();
+        return () => {
+             cancelled = true;
+        };
+    },[id]);
     /*
     A short list of main cast members, loaded with a second fetch request
     A link to the show page on TVmaze
-    Optionally, the poster image with useful alternative text
+    The poster image with useful alternative text
     */
 
 
@@ -116,6 +158,17 @@ function ShowDetails(){
             {show !== null ? <p>Premiered: {formattedDate}</p> : null}
 
             {show !== null ? <p>Updated: {updated}</p> : null}
+
+            <section>
+                <h3>Cast</h3>
+                {castLoading  === true ? <p>Cast Loading...</p> :
+                (castError !== "" ? <p>{castError}</p> : 
+                    (cast.length === 0 ? <p>No Cast Information Available</p> : 
+                        cast.slice(0,15).map((member) => {
+                            return <p key={member.person.id}>{member.person.name} as {member.character.name}</p>
+                        })))}
+            </section>
+            
 
 
 
