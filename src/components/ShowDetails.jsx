@@ -140,7 +140,7 @@ function ShowDetails(){
     },[id]);
 
     return(
-        <>
+        <div className="show-details">
             <h1>Show Details</h1>
             <Link to="/">Back to Gallery</Link>
             <p>Show ID: {id}</p>
@@ -161,8 +161,9 @@ function ShowDetails(){
 
             {show !== null ? <p>Updated: {updated}</p> : null}
 
+            <article>
             {show !== null ? <a target="_blank" href={show.url}>See Show on TV Maze</a> : null}
-
+            </article>
             <section>
                 <h3>Cast</h3>
                 {castLoading  === true ? <p>Cast Loading...</p> :
@@ -177,7 +178,7 @@ function ShowDetails(){
 
 
 
-        </>
+        </div>
             
         
     )
